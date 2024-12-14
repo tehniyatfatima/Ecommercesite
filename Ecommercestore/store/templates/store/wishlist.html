@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wishlist - E-commerce Store</title>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/cart/">cart</a>
+            <a href="/wishlist/">wishlist</a>
+            <form action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </header>
+
+    <main>
+        <h1>Your Wishlist</h1>
+        {% if wishlist_products %}
+            <ul>
+                {% for product in wishlist_products %}
+                    <li>
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:50px;height:auto;">
+                        {{ product.name }} - ${{ product.price }}
+                        <a href="/wishlist/remove/{{ product.id }}/">Remove</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Your wishlist is empty!</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 E-commerce Store</p>
+    </footer>
+</body>
+</html>
