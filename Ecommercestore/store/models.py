@@ -25,6 +25,8 @@ class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ManyToManyField(Product)
 
+       
+
 class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ManyToManyField(Product)

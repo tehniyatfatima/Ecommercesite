@@ -1,25 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ product.name }} - Product Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #2563eb; /* Blue */
+            color: white;
+            padding: 1rem;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: 600;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1e3a8a;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+        }
+
+        strong {
+            color: #1e3a8a;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        a:hover {
+            background-color: #1e3a8a;
+        }
+
+        footer {
+            background-color: #1e3a8a;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="navbar">
-            <!-- <a href="/">Home</a> -->
             <a href="/dashboard/">Dashboard</a>
             {% if not user.is_authenticated %}
                 <a href="/login/">Login</a>
                 <a href="/register/">Register</a>
             {% else %}
-                <a href="/logout/">Logout</a>
+                <form action="/logout/" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background: none; border: none; color: white; cursor: pointer; font-weight: 600;">Logout</button>
+                </form>
             {% endif %}
         </div>
     </header>
 
     <main>
         <h1>{{ product.name }}</h1>
-        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:300px;height:auto;">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
         <p><strong>Code:</strong> {{ product.code }}</p>
         <p><strong>Price:</strong> ${{ product.price }}</p>
         <p><strong>Stock:</strong> {{ product.stock }}</p>
@@ -28,9 +117,9 @@
         <p><strong>Color:</strong> {{ product.color }}</p>
         {% if user.is_authenticated %}
             <a href="/wishlist/add/{{ product.id }}/">Add to Wishlist</a>
-            <a href="/cart/add/{{ product.id }}/">Add to cart</a>
+            <a href="/cart/add/{{ product.id }}/">Add to Cart</a>
         {% else %}
-            <p><a href="/login/">Login</a> to add this product to your wishlist.</p>
+            <p><a href="/login/">Login</a> to add this product to your wishlist or cart.</p>
         {% endif %}
     </main>
 

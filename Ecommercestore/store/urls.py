@@ -16,7 +16,8 @@ urlpatterns = [
     path("wishlist/add/<int:pk>/", views.add_to_wishlist, name="add_to_wishlist"),
     path("cart/add/<int:pk>/", views.add_to_cart, name="add_to_cart"),
     path("wishlist/remove/<int:pk>/", views.remove_from_wishlist, name="remove_from_wishlist"),
-    path("cart/remove/<int:pk>/", views.remove_from_cart, name="remove_from_cart"),
+    path('cart/increase/<int:pk>/', views.increase_quantity, name='increase_quantity'),
+    path('remove-from-cart/<int:pk>/', views.remove_from_cart, name='remove_from_cart'),
     path("logout/", LogoutView.as_view(next_page ='login'), name= "logout"),
   
 ]
